@@ -88,10 +88,10 @@ This project follows PCI-DSS v4.0 guidelines:
 ## 📚 **Skills Demonstrated**
 
 1. **Cloud Deployment**: Creating and securing Azure VMs.
-2. **Network Security**: Using firewalls and secure access policies.
+2. **Cloud Security**: Using firewalls and secure access policies.
 3. **Database Management**: Encryption, logging, and access control.
-4. **Full-Stack Development**: Backend and frontend integration.
-5. **Compliance Knowledge**: Implementing PCI-DSS standards.
+4. **Continous Integration and Development**: Backend and frontend integration.
+5. **Regulatory Compliance**: Implementing PCI-DSS standards.
 
 ---
 
