@@ -1,2 +1,1 @@
-# HIPAA-Project
-3 Tier HIPAA Compliance Infrastructure
+# 3-Tier Bank Infrastructure with PCI-DSS Compliance
