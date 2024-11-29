@@ -97,151 +97,11 @@ This project follows PCI-DSS v4.0 guidelines:
 
 ## 🚀 **How to Run This Project**
 
-## **Step 1: Backend Tier Setup**
-
-### **Objective**: Deploy and configure the backend server with Java, Maven, and API access.
-
-#### **1.1. Create the Backend Server**
-1. Go to the **Azure Portal**.
-2. Navigate to **Virtual Machines** and click **Create** > **Virtual Machine**.
-3. Fill in the details:
-   - **Name**: `backend_vm`
-   - **Region**: Choose your nearest Azure region.
-   - **Image**: Ubuntu Server 22.04 LTS.
-   - **Size**: Standard DS1_v2 (1vCPU, 3.5GB RAM).
-4. Under **Administrator Account**, choose SSH public key and paste your key (use `ssh-keygen -b 4096` to generate one if you don’t have it).
-5. Under **Networking**, associate the **Network Security Group (NSG)** created in the next step.
-
----
-
-#### **1.2. Configure Network Security Group (NSG)**
-1. Go to the **NSG** associated with the backend VM.
-2. Add inbound rules:
-   - **Allow SSH (port 22)** from your IP.
-   - **Allow HTTP (port 4000)** from the frontend IP **172.20.0.0**.
-   - Deny all other traffic by default.
-
----
-
-#### **1.3. Install Java and Maven**
-1. Connect to the backend VM using an SSH client:
-   ```bash
-   ssh -i <private_key> azureuser@<backend_vm_public_ip>
-   ```
-2. Update and upgrade the system:
-   ```bash
-   sudo apt update && sudo apt upgrade -y
-   ```
-3. Install Java 17:
-   ```bash
-   sudo apt install openjdk-17-jdk openjdk-17-jre -y
-   ```
-4. Install Maven:
-   ```bash
-   sudo apt install maven -y
-   ```
-
----
-
-#### **1.4. Deploy Backend Code**
-1. Install Git:
-   ```bash
-   sudo apt install git -y
-   ```
-2. Clone your backend repository:
-   ```bash
-   git clone https://username:gittoken@remote-repo-link
-   ```
-3. Navigate to the repository folder:
-   ```bash
-   cd <repository_folder>
-   ```
-4. Update database credentials in the `application.properties` file:
-   ```properties
-   spring.datasource.url=jdbc:mysql://172.20.1.4:3306/online_banking_system
-   spring.datasource.username=<db_user>
-   spring.datasource.password=<db_password>
-   ```
-
----
-
-#### **1.5. Test Database Connection**
-1. Install MySQL client:
-   ```bash
-   sudo apt install mysql-client -y
-   ```
-2. Test the connection:
-   ```bash
-   mysql -u <db_user> -p<db_password> -h 172.20.1.4
-   ```
-
----
-
-## **Step 2: Frontend Tier Setup**
-
-### **Objective**: Deploy and configure the frontend server with React and Node.js.
-
-#### **2.1. Create the Frontend Server**
-1. In **Azure Portal**, navigate to **Virtual Machines** and create a new VM.
-2. Fill in the details:
-   - **Name**: `frontend-G3-vm`
-   - **Region**: Same as the backend server.
-   - **Image**: Ubuntu Server 22.04 LTS.
-   - **Size**: Standard DS1_v2.
-3. Secure with an SSH key, as done for the backend server.
-
----
-
-#### **2.2. Configure Network Security Group (NSG)**
-1. Go to the **NSG** associated with the frontend VM.
-2. Add inbound rules:
-   - **Allow SSH (port 22)** from your IP.
-   - **Allow HTTP (port 3000)** for web traffic.
-   - **Allow HTTPS (port 443)** for secure connections.
-
----
-
-#### **2.3. Install Node.js and npm**
-1. SSH into the frontend VM:
-   ```bash
-   ssh -i <private_key> frontendadmin@<frontend_vm_public_ip>
-   ```
-2. Update the system:
-   ```bash
-   sudo apt update && sudo apt upgrade -y
-   ```
-3. Install Node.js (version 14):
-   ```bash
-   curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-   sudo apt install -y nodejs
-   ```
-
----
-
-#### **2.4. Deploy Frontend Code**
-1. Clone your frontend repository:
-   ```bash
-   git clone https://username:gittoken@remote-repo-link
-   ```
-2. Update the frontend code to use the **backend private IP (172.20.0.0)**:
-   - Open the source files in the `src/` folder using:
-     ```bash
-     nano <file_name>
-     ```
-   - Replace any occurrences of `localhost` with `172.20.0.0`.
-3. Start the application:
-   ```bash
-   npm install
-   npm start
-   ```
-
----
-
-## **Step 3: Database Tier Setup**
+## **Step 1: Database Tier Setup**
 
 ### **Objective**: Deploy a secure MySQL database that meets PCI-DSS compliance.
 
-#### **3.1. Create the Database Server**
+#### **1.1. Create the Database Server**
 1. Create a new VM in Azure:
    - **Name**: `mysql-server`.
    - **Region**: Same as the other servers.
@@ -251,7 +111,7 @@ This project follows PCI-DSS v4.0 guidelines:
 
 ---
 
-#### **3.2. Secure the Database**
+#### **1.2. Secure the Database**
 1. SSH into the VM:
    ```bash
    ssh -i <private_key> azureuser@<database_public_ip>
@@ -275,7 +135,7 @@ This project follows PCI-DSS v4.0 guidelines:
 
 ---
 
-#### **3.3. Implement Compliance**
+#### **1.3. Implement Compliance**
 1. Enable encryption:
    - For data at rest: Use MySQL’s `InnoDB` encryption.
    - For data in transit: Configure SSL/TLS.
@@ -288,6 +148,147 @@ This project follows PCI-DSS v4.0 guidelines:
    ```ini
    general_log = 1
    general_log_file = /var/log/mysql/mysql.log
+   ```
+
+---
+
+## **Step 2: Backend Tier Setup**
+
+### **Objective**: Deploy and configure the backend server with Java, Maven, and API access.
+
+#### **2.1. Create the Backend Server**
+1. Go to the **Azure Portal**.
+2. Navigate to **Virtual Machines** and click **Create** > **Virtual Machine**.
+3. Fill in the details:
+   - **Name**: `backend_vm`
+   - **Region**: Choose your nearest Azure region.
+   - **Image**: Ubuntu Server 22.04 LTS.
+   - **Size**: Standard DS1_v2 (1vCPU, 3.5GB RAM).
+4. Under **Administrator Account**, choose SSH public key and paste your key (use `ssh-keygen -b 4096` to generate one if you don’t have it).
+5. Under **Networking**, associate the **Network Security Group (NSG)** created in the next step.
+
+---
+
+#### **2.2. Configure Network Security Group (NSG)**
+1. Go to the **NSG** associated with the backend VM.
+2. Add inbound rules:
+   - **Allow SSH (port 22)** from your IP.
+   - **Allow HTTP (port 4000)** from the frontend IP **172.20.0.0**.
+   - Deny all other traffic by default.
+
+---
+
+#### **2.3. Install Java and Maven**
+1. Connect to the backend VM using an SSH client:
+   ```bash
+   ssh -i <private_key> azureuser@<backend_vm_public_ip>
+   ```
+2. Update and upgrade the system:
+   ```bash
+   sudo apt update && sudo apt upgrade -y
+   ```
+3. Install Java 17:
+   ```bash
+   sudo apt install openjdk-17-jdk openjdk-17-jre -y
+   ```
+4. Install Maven:
+   ```bash
+   sudo apt install maven -y
+   ```
+
+---
+
+#### **2.4. Deploy Backend Code**
+1. Install Git:
+   ```bash
+   sudo apt install git -y
+   ```
+2. Clone your backend repository:
+   ```bash
+   git clone https://username:gittoken@remote-repo-link
+   ```
+3. Navigate to the repository folder:
+   ```bash
+   cd <repository_folder>
+   ```
+4. Update database credentials in the `application.properties` file:
+   ```properties
+   spring.datasource.url=jdbc:mysql://172.20.1.4:3306/online_banking_system
+   spring.datasource.username=<db_user>
+   spring.datasource.password=<db_password>
+   ```
+
+---
+
+#### **2.5. Test Database Connection**
+1. Install MySQL client:
+   ```bash
+   sudo apt install mysql-client -y
+   ```
+2. Test the connection:
+   ```bash
+   mysql -u <db_user> -p<db_password> -h 172.20.1.4
+   ```
+
+---
+
+
+## **Step 3: Frontend Tier Setup**
+
+### **Objective**: Deploy and configure the frontend server with React and Node.js.
+
+#### **3.1. Create the Frontend Server**
+1. In **Azure Portal**, navigate to **Virtual Machines** and create a new VM.
+2. Fill in the details:
+   - **Name**: `frontend-G3-vm`
+   - **Region**: Same as the backend server.
+   - **Image**: Ubuntu Server 22.04 LTS.
+   - **Size**: Standard DS1_v2.
+3. Secure with an SSH key, as done for the backend server.
+
+---
+
+#### **3.2. Configure Network Security Group (NSG)**
+1. Go to the **NSG** associated with the frontend VM.
+2. Add inbound rules:
+   - **Allow SSH (port 22)** from your IP.
+   - **Allow HTTP (port 3000)** for web traffic.
+   - **Allow HTTPS (port 443)** for secure connections.
+
+---
+
+#### **3.3. Install Node.js and npm**
+1. SSH into the frontend VM:
+   ```bash
+   ssh -i <private_key> frontendadmin@<frontend_vm_public_ip>
+   ```
+2. Update the system:
+   ```bash
+   sudo apt update && sudo apt upgrade -y
+   ```
+3. Install Node.js (version 14):
+   ```bash
+   curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+   sudo apt install -y nodejs
+   ```
+
+---
+
+#### **3.4. Deploy Frontend Code**
+1. Clone your frontend repository:
+   ```bash
+   git clone https://username:gittoken@remote-repo-link
+   ```
+2. Update the frontend code to use the **backend private IP (172.20.0.0)**:
+   - Open the source files in the `src/` folder using:
+     ```bash
+     nano <file_name>
+     ```
+   - Replace any occurrences of `localhost` with `172.20.0.0`.
+3. Start the application:
+   ```bash
+   npm install
+   npm start
    ```
 
 ---
