@@ -18,9 +18,11 @@ Imagine you're building a secure online banking platform that handles sensitive 
 ## 🏗️ **How It Works**
 
 This project uses a **3-tier architecture**:
-- **Frontend**: A user-friendly web interface built with React.
-- **Backend**: An API layer for handling business logic, secured with Java and Maven.
 - **Database**: A secure MySQL database configured to meet PCI-DSS standards.
+- **Backend**: An API layer for handling business logic, secured with Java and Maven.
+- **Frontend**: A user-friendly web interface built with React.
+
+
 
 Each component is hosted on its own Azure virtual machine (VM), with carefully crafted rules for network security and access control.
 
@@ -28,7 +30,18 @@ Each component is hosted on its own Azure virtual machine (VM), with carefully c
 
 ## 🛠️ **Steps to Build This Infrastructure**
 
-### 1. **Backend Server Setup**
+### 1. **Database Setup (PCI-DSS Compliance)**
+- **Secure the Database**:
+  - Install MySQL, change default passwords, and enable encryption (for data at rest and in transit).
+  - Configure logging and monitoring for all database activities.
+- **Access Control**:
+  - Create users with limited privileges using MySQL’s role-based access control (RBAC).
+  - Use Azure Key Vault to securely store sensitive credentials.
+- **Monitoring**:
+  - Integrate with Azure Monitor and Log Analytics for real-time tracking of database activities.
+
+---
+### 2. **Backend Server Setup**
 - **Create the Server**:
   - Set up an Ubuntu server (`backend_vm`) on Azure.
   - Secure it with an SSH key for access.
@@ -38,7 +51,8 @@ Each component is hosted on its own Azure virtual machine (VM), with carefully c
 - **Test Connections**:
   - Use MySQL client to verify the backend can securely communicate with the database.
 
-### 2. **Frontend Server Setup**
+---
+### 3. **Frontend Server Setup**
 - **Create the Server**:
   - Set up another Ubuntu server (`frontend-G3-vm`) for the web interface.
 - **Install Dependencies**:
@@ -46,16 +60,6 @@ Each component is hosted on its own Azure virtual machine (VM), with carefully c
   - Clone the frontend code repository and link it to the backend server.
 - **Launch the Application**:
   - Start the frontend server, enable port 3000 for the browser, and test the interface.
-
-### 3. **Database Setup (PCI-DSS Compliance)**
-- **Secure the Database**:
-  - Install MySQL, change default passwords, and enable encryption (for data at rest and in transit).
-  - Configure logging and monitoring for all database activities.
-- **Access Control**:
-  - Create users with limited privileges using MySQL’s role-based access control (RBAC).
-  - Use Azure Key Vault to securely store sensitive credentials.
-- **Monitoring**:
-  - Integrate with Azure Monitor and Log Analytics for real-time tracking of database activities.
 
 ---
 
