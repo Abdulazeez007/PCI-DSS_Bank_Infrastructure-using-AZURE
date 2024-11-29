@@ -22,9 +22,11 @@ This project uses a **3-tier architecture**:
 - **Backend**: An API layer for handling business logic, secured with Java and Maven.
 - **Frontend**: A user-friendly web interface built with React.
 
-
-
 Each component is hosted on its own Azure virtual machine (VM), with carefully crafted rules for network security and access control.
+---
+
+## 🛠️ **Project Architectural Design**
+![SOC](https://github.com/Abdulazeez007/PCI-DSS_Bank_Infrastructure-using-AZURE/blob/main/pcidss.jpg)
 
 ---
 
