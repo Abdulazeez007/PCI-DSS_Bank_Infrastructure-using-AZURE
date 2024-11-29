@@ -1,7 +1,7 @@
 
 # PCI-DSS Compliant 3-Tier Bank Infrastructure on Azure
 
-Welcome to the PCI-DSS compliant 3-tier banking project! This repository documents the setup of a secure, scalable, and compliant banking system using **Azure**, **Ubuntu**, **MySQL**, **Node.js**, and **Java**. It's designed to meet **PCI-DSS (Payment Card Industry Data Security Standards)**, ensuring secure handling of sensitive payment information.
+Welcome to my PCI-DSS compliant 3-tier banking project! This repository documents the setup of a secure, scalable, and compliant banking system using **Azure**, **Ubuntu**, **MySQL**, **Node.js**, and **Java**. It's designed to meet **PCI-DSS (Payment Card Industry Data Security Standards)**, ensuring secure handling of sensitive payment information.
 
 ---
 
